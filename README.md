@@ -37,7 +37,7 @@ docker-compose down
 
 Custom feature-packs
 --------------------
-[https://blogs.nologin.es/rickyepoderi/](https://blogs.nologin.es/rickyepoderi/)
+[https://docs.wildfly.org/21/Galleon_Guide.html](https://docs.wildfly.org/21/Galleon_Guide.html)
 
 ### Open Issues
 
