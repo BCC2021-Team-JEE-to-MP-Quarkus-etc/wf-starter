@@ -82,8 +82,8 @@ Required Maven-Module:
 ```
 
 The Readyness and Liveness -Checks can be provided per annotations and extending MP-Interfaces. See
-* [LivenessEndpoint.java](src/main/java/com/baloise/codecamp/wildfly/LivenessEndpoint.java)
-* [ReadinessEndpoint.java](src/main/java/com/baloise/codecamp/poc/mp/ReadynessEndpoint.java)
+* [LivenessEndpoint.java (simple solution)](src/main/java/com/baloise/codecamp/wildfly/LivenessEndpoint.java)
+* [ReadinessEndpoint.java (checking db-connectivity)](src/main/java/com/baloise/codecamp/wildfly/ReadynessEndpoint.java)
 
 The defaul health-apis can be reached with the following paths:
 ```bash
