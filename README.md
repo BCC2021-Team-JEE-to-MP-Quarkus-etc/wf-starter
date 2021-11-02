@@ -3,19 +3,19 @@ Wildfly 25, Microprofile 4.0
 see [https://www.wildfly.org/news/2021/10/05/WildFly25-Final-Released/](https://www.wildfly.org/news/2021/10/05/WildFly25-Final-Released/)
 see [https://github.com/wildfly-extras/wildfly-jar-maven-plugin/tree/6.0.0.Final/examples](https://github.com/wildfly-extras/wildfly-jar-maven-plugin/tree/6.0.0.Final/examples)
 
-Erste Schritte
+First steps
 --------------
-Projekt bauen
+Build project
 ```bash
 mvn clean install
 ```
 
-Server starten
+Start the server
 ```bash
 mvn wildfly-jar:run
 ```
 
-Rest-Endpoint aufrufen
+Request Rest-Endpoint
 ```bash
 curl http://localhost:8080/hello
 ```
@@ -26,19 +26,18 @@ see [wildfly-jar-maven-plugin/.../examples/dev-mode](https://github.com/wildfly-
 mvn wildfly-jar:dev-watch
 ```
 
-Benutzerdefinierte feature-packs für die Konfiguration des Wildfly
-------------------------------------------------------------------
+Custom feature-packs
+--------------------
 [https://blogs.nologin.es/rickyepoderi/](https://blogs.nologin.es/rickyepoderi/)
 
 ### Open Issues
 
-Die layer-specs lassen leider nicht alle Einstellungen zu, die mit dem JBoss-CLI tool gemacht werden können.
-so ist es erforderlich, dass nachträglich noch cli-scripts gestartet werden müssen.
-Diese sind nicht im feature-pack integrierbar und werden erst eim Applikationsbau ausgeführt.
+The layer-specs do not allow tweak all existing parameters such as JBoss-CLI tool.
+Therefore, its nessesary to add custom cli-scripts to modify these parameters.
+This leads to longer build-times and the cli-scripts cannot be included in the custom-feature-pack.
 
-
-Aktivieren der Microprofile-Platform im Wildfly
------------------------------------------------
+Activate Microprofile-Platform
+------------------------------
 ```xml
 <dependencyManagement>
     <!-- importing the microprofile BOM adds MicroProfile specs -->
@@ -64,7 +63,7 @@ Aktivieren der Microprofile-Platform im Wildfly
 
 Health-Checks
 -------------
-Benötigtes Maven-Modul:
+Required Maven-Module:
 ```xml
 <dependency>
     <groupId>org.eclipse.microprofile.health</groupId>
@@ -73,11 +72,11 @@ Benötigtes Maven-Modul:
 </dependency>
 ```
 
-Annotation-basiert, können die Readyness und Liveness Checks bereitgestellt werden:
+The Readyness and Liveness -Checks can be provided per annotations and extending MP-Interfaces. See
 * [LivenessEndpoint.java](src/main/java/com/baloise/codecamp/wildfly/LivenessEndpoint.java)
 * [ReadinessEndpoint.java](src/main/java/com/baloise/codecamp/poc/mp/ReadynessEndpoint.java)
 
-Default-mässig kann das Health-API dann über den Management-Port 9990 am Wildfly abgefragt werden:
+The defaul health-apis can be reached with the following paths:
 ```bash
  curl http://localhost:9990/health
 ```
@@ -93,7 +92,7 @@ Open API
 ```bash
 curl http://localhost:8080/openapi
 ```
-Es wird ein yaml zurückgeliefert, mit welchem ein Rest-Client generiert werden kann:
+Result:
 ```yaml
 ---
 openapi: 3.0.3
@@ -120,25 +119,24 @@ Metrics
 </dependency>
 ```
 
-Annotation-basiert, können individuelle metrics eingerichtet werden werden:
-* siehe `@Metered` in [HelloWorldEndpoint.java](src/main/java/com/baloise/codecamp/wildfly/HelloWorldEndpoint.java):
+Individual Metrics-Annotations provide dedicated metrics direct from the Endpoint-Implementations:
+* see `@Metered` in [HelloWorldEndpoint.java](src/main/java/com/baloise/codecamp/wildfly/HelloWorldEndpoint.java):
   
-  Misst den Durchsatz einer Methode
+  Measure for throughput
   
-* siehe `@Timed` in [HelloWorldEndpoint.java](src/main/java/com/baloise/codecamp/wildfly/HelloWorldEndpoint.java):
+* see `@Timed` in [HelloWorldEndpoint.java](src/main/java/com/baloise/codecamp/wildfly/HelloWorldEndpoint.java):
   
-  Misst die Ausführungszeit einer Methode
+  Measure for duration of requests
   
-* siehe `@Counted` in [HelloWorldEndpoint.java](src/main/java/com/baloise/codecamp/wildfly/HelloWorldEndpoint.java):
+* see `@Counted` in [HelloWorldEndpoint.java](src/main/java/com/baloise/codecamp/wildfly/HelloWorldEndpoint.java):
   
-  Misst die Anzahl Aufrufe einer 
+  Meaure for counter of requests
   
-* siehe `@Gauge` in [HelloWorldEndpoint.java](src/main/java/com/baloise/codecamp/wildfly/HelloWorldEndpoint.java):
+* see `@Gauge` in [HelloWorldEndpoint.java](src/main/java/com/baloise/codecamp/wildfly/HelloWorldEndpoint.java):
   
-  Gibt Auskunft über einen aktuellen Zustand des Systems 
+  Exposes individual current state. 
 
-Default-mässig kann das Metrics-API dann über den Management-Port 9990 am Wildfly abgefragt werden. Die Metrics werden
-erst beauskunftet, wenn sie über das API angesprochen wurden (siehe Beispiel-Calls weiter oben):
+Try the following curl statements to use the metrics-api
 ```bash
 curl http://localhost:9990/metrics
 curl -v http://localhost:9990/metrics --stderr - | grep hello
