@@ -1,0 +1,43 @@
+version: '3'
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=quickstart
+    ports:
+      - "5432:5432"
+    #    volumes:
+    #      - "./data:/var/lib/postgresql/data"
+    networks:
+      - codecampnet
+
+  quickstart:
+    build:
+      context: ./
+      dockerfile: ./src/main/docker/Dockerfile
+    restart: always
+    ports:
+      - "8080:8080"
+      - "9990:9990"
+    networks:
+      - codecampnet
+
+  pg-admin:
+    build:
+      context: ./local-config
+      dockerfile: ./dockerfile_for_pgadmin
+    restart: always
+    environment:
+      - "PGADMIN_DEFAULT_EMAIL=codecamp@baloise.com"
+      - "PGADMIN_DEFAULT_PASSWORD=password"
+    volumes:
+      - "./local-config/servers.json:/pgadmin4/servers.json"
+    ports:
+      - "8432:80"
+    networks:
+      - codecampnet
+networks:
+  codecampnet:

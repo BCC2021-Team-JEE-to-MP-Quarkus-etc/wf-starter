@@ -26,6 +26,15 @@ see [wildfly-jar-maven-plugin/.../examples/dev-mode](https://github.com/wildfly-
 mvn wildfly-jar:dev-watch
 ```
 
+Start Server with PostgreSQL in docker-compose
+```shell
+docker-compose up --build -d
+```
+Tear down all docker-compose ressources
+```shell
+docker-compose down
+```
+
 Custom feature-packs
 --------------------
 [https://blogs.nologin.es/rickyepoderi/](https://blogs.nologin.es/rickyepoderi/)

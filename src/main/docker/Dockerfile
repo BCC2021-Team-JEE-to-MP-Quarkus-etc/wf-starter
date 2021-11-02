@@ -9,6 +9,9 @@ USER 1001
 ENV GC_METASPACE_SIZE=96
 ENV GC_MAX_METASPACE_SIZE=256
 
+EXPOSE 8080
+EXPOSE 9990
+
 ENTRYPOINT ["java" \
     , "-Duser.home=/home" \
     , "-Duser.timezone=Europe/Zurich" \
