@@ -253,6 +253,7 @@
                             <version>${project.version}</version>
                         </feature-pack>
                     </feature-packs>
+                    <cloud/>
                     <layers>
                         <layer>jaxrs</layer>
                         <layer>cdi</layer>
