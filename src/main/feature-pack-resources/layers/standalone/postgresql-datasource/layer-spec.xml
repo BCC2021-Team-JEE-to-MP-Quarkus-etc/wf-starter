@@ -11,7 +11,7 @@
         <param name="enabled" value="true"/>
         <param name="use-java-context" value="true"/>
         <param name="jndi-name" value="java:/PgDatasource"/>
-        <param name="connection-url" value="jdbc:postgresql://${env.DS_HOST:postgres}:${env.DS_PORT:5432}/${env.DS_DB:quickstart}"/>
+        <param name="connection-url" value="jdbc:postgresql://${env.DS_HOST:localhost}:${env.DS_PORT:5432}/${env.DS_DB:quickstart}"/>
         <param name="driver-name" value="postgresql"/>
         <param name="user-name" value="${env.DS_USER:postgres}"/>
         <param name="password" value="${env.DS_PASSWORD:mysecretpassword}"/>
