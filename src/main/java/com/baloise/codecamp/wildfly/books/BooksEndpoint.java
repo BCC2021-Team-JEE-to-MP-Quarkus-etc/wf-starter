@@ -29,6 +29,13 @@ public class BooksEndpoint {
     }
 
     @GET
+    @Path("{title}")
+    @Produces("application/json")
+    public Book findByTitle(@PathParam("title") String title) {
+        return bookService.findByTitle(title);
+    }
+
+    @GET
     @Path("/loadData")
     public void loadData() {
         bookService.loadData();

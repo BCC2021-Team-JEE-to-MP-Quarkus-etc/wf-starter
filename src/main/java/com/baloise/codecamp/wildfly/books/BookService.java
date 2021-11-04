@@ -22,6 +22,11 @@ public class BookService {
     }
 
     @Transactional
+    public Book findByTitle(String title) {
+        return em.createNamedQuery(Book.FIND_BY_TITLE, Book.class).setParameter(1, title + "%").getSingleResult();
+    }
+
+    @Transactional
     public void deleteAll() {
         em.createNativeQuery("delete from book").executeUpdate();
     }
@@ -43,6 +48,7 @@ public class BookService {
         deleteAll();
         createBook("Java for Beginners", "Java Guru");
         createBook("Angular for Beginners", "Angular Guru");
-        createBook("title", "author");
+        createBook("Quarkus for Beginners", "Quarkus Guru");
     }
+
 }

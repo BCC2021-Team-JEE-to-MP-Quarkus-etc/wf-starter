@@ -11,8 +11,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name="book")
 @NamedQuery(name = Book.FIND_ALL, query = "SELECT b FROM Book b")
+@NamedQuery(name = Book.FIND_BY_TITLE, query = "SELECT b FROM Book b where b.title like ?1")
 public class Book {
     public static final String FIND_ALL = "Book.ALL";
+    public static final String FIND_BY_TITLE = "Book.BY_TITLE";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -9,25 +9,30 @@ services:
       - POSTGRES_DB=quickstart
     ports:
       - "5432:5432"
-    #    volumes:
-    #      - "./data:/var/lib/postgresql/data"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - codecampnet
 
   quickstart:
+    # image: ghcr.io/bcc2021-team-jee-to-mp-quarkus-etc/wf-starter:da363759f570bc6a3e0ffe983c8717e19a615591
+    depends_on:
+      - postgres
     build:
       context: ./
       dockerfile: ./src/main/docker/Dockerfile
     restart: always
     environment:
       - DB_HOST=postgres
-    #    ports:
-    #      - "8080:8080"
-    #      - "9990:9990"
+    #ports:
+    #  - "8080:8080"
+    #  - "9990:9990"
     networks:
       - codecampnet
 
   pg-admin:
+    depends_on:
+      - postgres
     build:
       context: ./local-config
       dockerfile: ./dockerfile_for_pgadmin
