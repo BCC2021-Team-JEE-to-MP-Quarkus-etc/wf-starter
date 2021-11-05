@@ -15,9 +15,11 @@ Start the server
 mvn wildfly-jar:run
 ```
 
+Start [homepage](http://localhost:8080/)
+
 Request Rest-Endpoint
 ```bash
-curl http://localhost:8080/hello
+curl http://localhost:8080/api/hello
 ```
 
 Dev-Mode (watch of your source files)

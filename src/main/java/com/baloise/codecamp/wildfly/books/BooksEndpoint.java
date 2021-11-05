@@ -21,12 +21,12 @@ public class BooksEndpoint {
         return bookService.list();
     }
 
-    @GET
-    @Path("{id}")
-    @Produces("application/json")
-    public Book findById(@PathParam("id") Long id) {
-        return bookService.findById(id);
-    }
+//    @GET
+//    @Path("{id}")
+//    @Produces("application/json")
+//    public Book findById(@PathParam("id") Long id) {
+//        return bookService.findById(id);
+//    }
 
     @GET
     @Path("{title}")
